@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/owfont-regular.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="material-icons.css">
+  <title>momentum</title>
+</head>
+<body>
+  <header class="header">
+    <div class="player">
+      <div class="player-controls">
+        <button class="play-prev player-icon"></button>
+        <button class="play player-icon"></button>
+        <button class="play-next player-icon"></button>
+      </div>
+      <div class="audio-name"></div>
+      <div class="audio-box">
+        <div class="player-container">
+          <input type="range" value="0" min="0" max="100" step="1" class="progress">
+          <div class="timer-container">
+            <div class="timer">0:00</div>
+            <div class="durarion">0:00</div>
+          </div>
+        </div>
+
+        <div class="volume-container"> 
+          <input type="range" value="1" min="0" max="1" step="0.05" class="volume-progress">
+          <button class="volume"></button>
+        </div>
+      </div>
+      <ul class="play-list">
+      </ul>
+    </div>
+    <div class="time-container">
+      <time class="time"></time>
+      <date class="date"></date>
+    </div>
+    <div class="weather">
+      <input type="text" class="city" value="Minsk" />
+      <i class="weather-icon owf"></i>
+      <div class="weather-error"></div>
+      <div class="description-container">
+        <span class="temperature"></span>
+        <span class="weather-description"></span>
+      </div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <div class="greeting-container">
+      <span class="greeting"></span>
+      <input type="text" class="name" />
+    </div>
+    <div id="root">
+      <div class="container">
+          <h3>Добавить дело</h3>
+          <div class="deal-list">
+            <input id="new-task" type="text">
+            <button id="add">Добавить</button>
+          </div>
+          <h3>Список дел</h3>
+          <ul id="unfinished-tasks">
+          </ul>
+          <h3>Завершенные дела</h3>
+          <ul id="finished-tasks">
+          </ul>
+      </div>
+      <div class="quote-container">
+        <button class="change-quote"></button>
+        <div>
+          <div class="quote"></div>
+          <div class="author"></div>
+        </div>
+      </div>
+      <div class="exchange">
+        <div id="USD"> $ — 00,00 руб.</div>
+        <div id="EUR"> € — 00,00 руб.</div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    
+    <div class="footer-part">
+    <div class="settings-container">
+      
+      <div class="settings">
+        <div class="settings-item">
+          <div class="settings-label settings-label-lang">Language</div>
+          <select class="lang" name="theme" required="required">
+            <option>en</option>
+            <option>ru</option>
+          </select>
+        </div>
+        <div class="settings-item">
+          <div class="settings-label settings-label-img">Images</div>
+          <select class="apiImg" name="theme" required="required">
+            <option>GitHub</option>
+            <option>Unsplash API</option>
+            <option>Flickr API</option>
+          </select>
+        </div>
+        <div class="settings-item">
+          <div class="settings-label settings-label-tage">Tage</div>
+          <input class="settings-label-tage-input" type="text">
+        </div>
+        <div class="settings-item">
+          <div class="settings-label settings-label-hide">Hide</div>
+          <select class="disNone" name="theme" required="required">
+            <option></option>
+            <option>time</option>
+            <option>date</option>
+            <option>quote</option>
+            <option>weather</option>
+            <option>player</option>
+            <option>greeting</option>
+            <option>exchange</option>
+            <option>todo</option>
+          </select>
+        </div>
+        
+      </div>
+      <div class="button-settings"></div>
+    </div>
+    <div class="end">
+      <a class="footer-item" href="https://github.com/natakers">My Git</a>
+		  	<time class="footer-item">2021</time>
+		  	<a class="footer-item" href="https://rs.school/js/"><img class="rs" src="assets/svg/rs_school_js.svg" alt="rs_school"></a>
+    </div>
+  </footer>
+  <script src="js/script.js"></script>
+  <link rel="dns-prefetch" href="https://www.cbr-xml-daily.ru/" />
+  <script src="//www.cbr-xml-daily.ru/daily_jsonp.js" async></script>
+</body>
+</html>
