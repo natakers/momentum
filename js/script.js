@@ -5,9 +5,9 @@ const playList = [
     duration: '00:39'
   },  
   {      
-      title: 'Ennio Morricone',
-      src: '../assets/sounds/Ennio Morricone.mp3',
-      duration: '01:37'
+    title: 'Ennio Morricone',
+    src: '../assets/sounds/Ennio Morricone.mp3',
+    duration: '01:37'
   },
   {      
     title: 'River Flows In You',
@@ -15,12 +15,11 @@ const playList = [
     duration: '01:37'
   },
   {      
-      title: 'Summer wind',
-      src: '../assets/sounds/Summer wind.mp3',
-      duration: '01:50'
+    title: 'Summer wind',
+    src: '../assets/sounds/Summer wind.mp3',
+    duration: '01:50'
   }  
 ]
-
 
 const time = document.querySelector('.time');
 const date = document.querySelector('.date');
@@ -56,16 +55,11 @@ const settingsLabelImg = document.querySelector('.settings-label-img')
 const settingsLabelHide = document.querySelector('.settings-label-hide')
 const settingsLabelTage = document.querySelector('.settings-label-tage')
 const settingsLabelTageInput = document.querySelector('.settings-label-tage-input');
-
-
-
 const progress = document.querySelector('.progress');
 const volProgress = document.querySelector('.volume-progress');
 const volume = document.querySelector('.volume');
 let langType = "en-En";
 let index = 0;
-
-
 const weatherIcon = document.querySelector('.weather-icon');
 const weatherError = document.querySelector('.weather-error');
 const temperature = document.querySelector('.temperature');
@@ -76,148 +70,172 @@ const city = document.querySelector('.city');
 const ul = document.querySelector('ul');
 const exchange = document.querySelector('.exchange');
 const container = document.querySelector('.container');
+const addButton = document.getElementById('add');
+const inputTask = document.getElementById('new-task');
+const unfinishedTasks = document.getElementById('unfinished-tasks');
+const finishedTasks = document.getElementById('finished-tasks');
+let bgTime = getTimeOfDay();
+showTime();
+showGreeting();
+window.addEventListener('beforeunload', setLocalStorage)
+window.addEventListener('load', getLocalStorage)
+nameUser.focus()
+bgImg();
+getQuotes();
+playList.forEach(el => {
+  const li = document.createElement('li');
+  const span = document.createElement('span');
+  li.classList.add('play-item');
+  span.innerHTML = el.title;
+  li.append(span); 
+  playListContainer.append(li)
+})
+const lis = document.querySelectorAll('li')
+slideNext.addEventListener('click', getSlideNext);
+slidePrev.addEventListener('click', getSlidePrev);
+changeQuote.addEventListener('click', getQuotes);
+play.addEventListener('click', playAudio);
+playNext.addEventListener('click', playAudioNext);
+playPrev.addEventListener('click', playAudioPrev);
+progress.addEventListener("input", progressChage);
+volProgress.addEventListener("change", progressChage1);
+volProgress.addEventListener("mousemove", progressChage1);
+volume.addEventListener('click', volPower);
+audio.addEventListener("timeupdate", tof);
+buttonSettings.addEventListener('click', addSettings);
+ul.addEventListener('click', smallPlay);
+lang.addEventListener('change', langSetting);
+apiImg.addEventListener('click', apiSetting);
+disNone.addEventListener('change', disSetting);
+settingsLabelTageInput.addEventListener('change', tageSetting)
+city.addEventListener('change', getWeather); 
+addButton.onclick = addTask;
+let data=load();
 
-
-let bgTime = getTimeOfDay()
-
-
-
-
+for( let i=0; i<data.unfinishedTasks.length;i++){
+  let listItem=createNewElement(data.unfinishedTasks[i], false);
+  unfinishedTasks.appendChild(listItem);
+  bindTaskEvents(listItem, finishTask);
+}
+  
+for( let i=0; i<data.finishedTasks.length; i++){
+  let listItem=createNewElement(data.finishedTasks[i], true);
+  finishedTasks.appendChild(listItem);
+  bindTaskEvents(listItem, unfinishTask);
+}
 
 function showTime() {
-
-const now = new Date();
-const currentTime = now.toLocaleTimeString();
-
-
-const day2 = now.toLocaleDateString(langType, { month: 'long', day: 'numeric', weekday: 'long'});
-time.innerHTML = currentTime;
-time.style.textTransform = "upperCase";
-date.innerHTML = day2;
-    setTimeout(showTime, 1000);
-  }
-  showTime();
-
-
-  function showGreeting() {
-
-      const timeOfDay = getTimeOfDay();
-      if (langType == "en-En") {
-        greeting.innerHTML = `Good ${timeOfDay}`;
-      }
-      if (langType == "ru-Ru") {
-        if (timeOfDay == 'night') {
-          greeting.innerHTML = "Доброй ночи"
-      }
-      if (timeOfDay == 'morning') {
-        greeting.innerHTML = "Доброе утро"
-      }
-      if (timeOfDay == 'afternoon') {
-        greeting.innerHTML = "Добрый день"
-      }
-      if (timeOfDay == 'evening') {
-        greeting.innerHTML = "Добрый вечер"
-      }
-
-      }
-      
-
-        
-  }
-
-  function getTimeOfDay() {
-    const now1 = new Date();
-    const hour = now1.getHours();
-    if (0 <= hour && hour < 6) {
-        return 'night'
-    }
-    if (6 <= hour && hour < 12) {
-        return 'morning'
-    }
-    if (12 <= hour && hour < 18) {
-        return 'afternoon'
-    }
-    if (18 <= hour && hour < 24) {
-        return 'evening'
-    }
+  const now = new Date();
+  const currentTime = now.toLocaleTimeString();
+  const day2 = now.toLocaleDateString(langType, { month: 'long', day: 'numeric', weekday: 'long'});
+  time.innerHTML = currentTime;
+  time.style.textTransform = "upperCase";
+  date.innerHTML = day2;
+  setTimeout(showTime, 1000);
 }
-  showGreeting();
 
-  function setLocalStorage() {
-    localStorage.setItem('name', nameUser.value);
-    localStorage.setItem('town', city.value);
-    localStorage.setItem('lang', lang.value);
-    localStorage.setItem('api', apiImg.value);
-    localStorage.setItem('tage', settingsLabelTageInput.value);
-    localStorage.setItem('hide', disNone.value);
+function showGreeting() {
+  const timeOfDay = getTimeOfDay();
+  if (langType == "en-En") {
+    greeting.innerHTML = `Good ${timeOfDay}`;
   }
-  window.addEventListener('beforeunload', setLocalStorage)
+  if (langType == "ru-Ru") {
+    if (timeOfDay == 'night') {
+      greeting.innerHTML = "Доброй ночи"
+    }
+    if (timeOfDay == 'morning') {
+      greeting.innerHTML = "Доброе утро"
+    }
+    if (timeOfDay == 'afternoon') {
+      greeting.innerHTML = "Добрый день"
+    }
+    if (timeOfDay == 'evening') {
+      greeting.innerHTML = "Добрый вечер"
+    }
+  }      
+}
 
-  function getLocalStorage() {
-    if(localStorage.getItem('name')) {
-      nameUser.value = localStorage.getItem('name');
-    }
-    if(localStorage.getItem('town')) {
-      city.value = localStorage.getItem('town');
-      getWeather();
-    }
-    if(localStorage.getItem('lang')) {
-      lang.value = localStorage.getItem('lang');
-      langSetting();
-    }
-    if(localStorage.getItem('tage')) {
-      settingsLabelTageInput.value = localStorage.getItem('tage');
-      tageSetting();
-    }
-    if(localStorage.getItem('api')) {
-      apiImg.value = localStorage.getItem('api');
-      apiSetting();
-    }
-    if(localStorage.getItem('hide')) {
-      disNone.value = localStorage.getItem('hide');
-      disSetting();
-    }
+function getTimeOfDay() {
+  const now1 = new Date();
+  const hour = now1.getHours();
+  if (0 <= hour && hour < 6) {
+    return 'night'
   }
-  window.addEventListener('load', getLocalStorage)
-  nameUser.focus()
-
-  function getRandonNum() {
-    let min = Math.ceil(1);
-    let max = Math.floor(20);
-    return Math.floor(Math.random() * (max - min + 1)) + min; 
+  if (6 <= hour && hour < 12) {
+    return 'morning'
   }
-
-  function getRandonQuote() {
-    let min = Math.ceil(0);
-    let max = Math.floor(19);
-    return Math.floor(Math.random() * (max - min + 1)) + min; 
+  if (12 <= hour && hour < 18) {
+    return 'afternoon'
   }
+  if (18 <= hour && hour < 24) {
+    return 'evening'
+  }
+}
 
-  
+function setLocalStorage() {
+  localStorage.setItem('name', nameUser.value);
+  localStorage.setItem('town', city.value);
+  localStorage.setItem('lang', lang.value);
+  localStorage.setItem('api', apiImg.value);
+  localStorage.setItem('tage', settingsLabelTageInput.value);
+  localStorage.setItem('hide', disNone.value);
+}
+
+function getLocalStorage() {
+  if(localStorage.getItem('name')) {
+    nameUser.value = localStorage.getItem('name');
+  }
+  if(localStorage.getItem('town')) {
+    city.value = localStorage.getItem('town');
+    getWeather();
+  }
+  if(localStorage.getItem('lang')) {
+    lang.value = localStorage.getItem('lang');
+    langSetting();
+  }
+  if(localStorage.getItem('tage')) {
+    settingsLabelTageInput.value = localStorage.getItem('tage');
+    tageSetting();
+  }
+  if(localStorage.getItem('api')) {
+    apiImg.value = localStorage.getItem('api');
+    apiSetting();
+  }
+  if(localStorage.getItem('hide')) {
+    disNone.value = localStorage.getItem('hide');
+    disSetting();
+  }
+}
+
+function getRandonNum() {
+  let min = Math.ceil(1);
+  let max = Math.floor(20);
+  return Math.floor(Math.random() * (max - min + 1)) + min; 
+}
+
+function getRandonQuote() {
+  let min = Math.ceil(0);
+  let max = Math.floor(19);
+  return Math.floor(Math.random() * (max - min + 1)) + min; 
+}
 
 function bgImg() {
   const bgNumTo = bgNum.toString().padStart(2, "0");
   if(apiImg.value == "GitHub") {
-    
-
     const img = new Image();
     img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${bgTime}/${bgNumTo}.jpg`; 
     img.onload = () => {
-        body.style.backgroundImage = `url(${img.src})`;
-        body.style.backgroundRepeat = 'no-repeat'
-        
-      };
-    }
-    if(apiImg.value == "Unsplash API") {
-      getLinkToImage()
-    }
-    if(apiImg.value == "Flickr API") {
-      getLinkToImageF()
-    }
-
+      body.style.backgroundImage = `url(${img.src})`;
+      body.style.backgroundRepeat = 'no-repeat';
+    };
+  }
+  if(apiImg.value == "Unsplash API") {
+    getLinkToImage()
+  }
+  if(apiImg.value == "Flickr API") {
+    getLinkToImageF()
+  }
 }
-
-bgImg();
 
 function getSlideNext() {
   if(apiImg.value == "GitHub") {
@@ -236,17 +254,13 @@ function getSlideNext() {
     }
     else bgNum = bgNum + 1;
     getLinkToImageF();
-    }
-    
-  // }
-   
+  }
 }
 
 function getSlidePrev() {
   if(apiImg.value == "GitHub") {
     if (bgNum < 2) {
-        console.log(bgNum)
-         bgNum = 20;
+      bgNum = 20;
     }
     else bgNum--;
     bgImg();
@@ -256,33 +270,23 @@ function getSlidePrev() {
   }
   if(apiImg.value == "Flickr API") {
     if (bgNum < 2) {
-      console.log(bgNum)
-       bgNum = 20;
+    bgNum = 20;
   }
   else bgNum--;
   getLinkToImageF()
   }
-
-  
-
 }
-
-
-
-slideNext.addEventListener('click', getSlideNext);
-
-slidePrev.addEventListener('click', getSlidePrev);
 
 async function getLinkToImage() {
   const url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${bgTime}&client_id=TU1rJodMVg3hPJJRNxrKsIewkaSoLC3fvIPBW2BbeL8`;
   const res = await fetch(url);
   const data = await res.json();
   const img = new Image; 
-    img.src = data.urls.regular; 
+  img.src = data.urls.regular; 
   img.onload = () => {
-      body.style.backgroundImage = `url(${img.src})`;
-      body.style.backgroundSize = 'cover'
-      body.style.backgroundRepeat = 'no-repeat'
+    body.style.backgroundImage = `url(${img.src})`;
+    body.style.backgroundSize = 'cover'
+    body.style.backgroundRepeat = 'no-repeat'
  }
 }
 
@@ -293,19 +297,15 @@ async function getLinkToImageF() {
   const img = new Image;
   img.src = data.photos.photo[bgNum].url_l; 
   img.onload = () => {
-      body.style.backgroundImage = `url(${img.src})`;
-      body.style.backgroundSize = 'cover'
-      body.style.backgroundRepeat = 'no-repeat'
-  
- }
-
+    body.style.backgroundImage = `url(${img.src})`;
+    body.style.backgroundSize = 'cover'
+    body.style.backgroundRepeat = 'no-repeat'
+  }
 }
-
 
 function getQuotes() {
   const quotes = 'data.json';
-    const ran = getRandonQuote();
-    
+  const ran = getRandonQuote();  
   if (langType == "en-En") {
     let qNum = 0
     fetch(quotes)
@@ -324,180 +324,134 @@ function getQuotes() {
       author.innerHTML = data[qNum][ran].author;
     });
   }
-  }
-    
-    
-  getQuotes();
-  changeQuote.addEventListener('click', getQuotes);
+}
 
-
-  function playAudio() {
-    lis.forEach(item => {
-        item.classList.remove('pause');
-    })
-    
-    let a = audio.currentTime;
-    console.log(lis)
-    lis.forEach(item => {
-      if (item.innerText == playList[playNum].title) {
-        item.classList.add('pause');
-      }
-    })
-
-    if(!isPlay) {
-      isPlay = true;
-      audio.src = playList[playNum].src;
-      audio.currentTime = a;
-      audio.play();
-      lis.forEach(item => {
-        if (item.innerText == playList[playNum].title) {
-          item.classList.add('pause');
-        }
-      })
-      
-
+function playAudio() {
+  lis.forEach(item => {
+    item.classList.remove('pause');
+  })    
+  let a = audio.currentTime;
+  console.log(lis)
+  lis.forEach(item => {
+    if (item.innerText == playList[playNum].title) {
+      item.classList.add('pause');
     }
-    else {
-      isPlay = false;
-      audio.pause();
-      lis.forEach(item => {
-        if (item.innerText == playList[playNum].title) {
-          item.classList.remove('pause');
-        }
-      })
-    }
-    audioName.innerHTML = playList[playNum].title;
-    play.classList.toggle('pause');
-
-  }
-
-  function playAudioNext() {
-    
-    audio.currentTime = 0;
-    if(playNum == playList.length-1) {
-      playNum = 0; 
-    }
-    else {
-      playNum++;
-    }
-
-    isPlay = true;
-    audio.src = audio.src = playList[playNum].src;
-    audioName.innerHTML = playList[playNum].title;
-    audio.currentTime = 0;
-    audio.play();
-    play.classList.add('pause');
-    lis.forEach(item => {
-        item.classList.remove('pause');
-    })
-    lis.forEach(item => {
-      if (item.innerText == playList[playNum].title) {
-        item.classList.add('pause');
-      }
-    })
-  }
-
-  function playAudioPrev() {
-    
-    audio.currentTime = 0;
-    if(playNum < 1) {
-      playNum = playList.length-1; 
-    }
-    else {
-      playNum--;
-    }
+  })
+  if(!isPlay) {
     isPlay = true;
     audio.src = playList[playNum].src;
-    audioName.innerHTML = playList[playNum].title;
-    audio.currentTime = 0;
+    audio.currentTime = a;
     audio.play();
-    play.classList.add('pause');
-    lis.forEach(item => {
-        item.classList.remove('pause');
-    })
     lis.forEach(item => {
       if (item.innerText == playList[playNum].title) {
         item.classList.add('pause');
       }
     })
-  }
-
-  play.addEventListener('click', playAudio);
-  playNext.addEventListener('click', playAudioNext);
-  playPrev.addEventListener('click', playAudioPrev);
-
-
-
-  playList.forEach(el => {
-    const li = document.createElement('li');
-    const span = document.createElement('span');
-    li.classList.add('play-item');
-    span.innerHTML = el.title;
-    li.append(span); 
-    playListContainer.append(li)
-  })
-
-  const lis = document.querySelectorAll('li')
-
-  function tof() {
-    progress.style.background = `linear-gradient(to right, #710707 0%, #710707 ${audio.currentTime/(audio.duration/100)}%, #C4C4C4 ${audio.currentTime/(audio.duration/100)}%, #C4C4C4 100%)`
-    progress.value = audio.currentTime/(audio.duration/100);
-    let minutes = Math.floor(audio.currentTime / 60) || 0;
-    let seconds = Math.floor(audio.currentTime - minutes * 60) || 0;
-    timer.innerHTML = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-    let minutes1 = Math.floor(audio.duration / 60) || 0;
-    let seconds1 = Math.floor(audio.duration - minutes1 * 60) || 0;
-    durarionAudio.innerHTML = minutes1 + ':' + (seconds1 < 10 ? '0' : '') + seconds1;
-    if (audio.currentTime == audio.duration) {
-      play.classList.remove('pause');
+  } else {
+    isPlay = false;
+    audio.pause();
     lis.forEach(item => {
+      if (item.innerText == playList[playNum].title) {
         item.classList.remove('pause');
-        isPlay = false;
+      }
     })
-    }
   }
+  audioName.innerHTML = playList[playNum].title;
+  play.classList.toggle('pause');
+}
 
-  function volPower() {
-    
-    if (audio.volume > 0) {
-      audio.volume = 0;
-      volume.style.backgroundImage = 'url(assets/svg/mute.svg)';
-      volProgress.value = 0;
-    }
-    else {
-      audio.volume = 1;
-      volume.style.backgroundImage = 'url(assets/svg/volume.svg)';
-      volProgress.value = 1;
-    }
-  
+function playAudioNext() {
+  audio.currentTime = 0;
+  if(playNum == playList.length-1) {
+    playNum = 0; 
   }
+  else {
+    playNum++;
+  }
+  isPlay = true;
+  audio.src = audio.src = playList[playNum].src;
+  audioName.innerHTML = playList[playNum].title;
+  audio.currentTime = 0;
+  audio.play();
+  play.classList.add('pause');
+  lis.forEach(item => {
+    item.classList.remove('pause');
+  })
+  lis.forEach(item => {
+    if (item.innerText == playList[playNum].title) {
+      item.classList.add('pause');
+    }
+  })
+}
 
-  function progressChage() {
-    audio.currentTime = progress.value * (audio.duration/100);
+function playAudioPrev() {
+  audio.currentTime = 0;
+  if(playNum < 1) {
+    playNum = playList.length-1; 
   }
-  
-  function progressChage1() {
-    
-    audio.volume = volProgress.value;
-    volProgress.style.background = `linear-gradient(to right, #710707 0%, #710707 ${volProgress.value}%, #C4C4C4 ${volProgress.value}%, #C4C4C4 100%)`;
-    if (volProgress.value > 0) {
-      volume.style.backgroundImage = 'url(assets/svg/volume.svg)';
+  else {
+    playNum--;
+  }
+  isPlay = true;
+  audio.src = playList[playNum].src;
+  audioName.innerHTML = playList[playNum].title;
+  audio.currentTime = 0;
+  audio.play();
+  play.classList.add('pause');
+  lis.forEach(item => {
+    item.classList.remove('pause');
+  })
+  lis.forEach(item => {
+    if (item.innerText == playList[playNum].title) {
+      item.classList.add('pause');
     }
-    else {
+  })
+}
+
+function tof() {
+  progress.style.background = `linear-gradient(to right, #710707 0%, #710707 ${audio.currentTime/(audio.duration/100)}%, #C4C4C4 ${audio.currentTime/(audio.duration/100)}%, #C4C4C4 100%)`
+  progress.value = audio.currentTime/(audio.duration/100);
+  let minutes = Math.floor(audio.currentTime / 60) || 0;
+  let seconds = Math.floor(audio.currentTime - minutes * 60) || 0;
+  timer.innerHTML = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+  let minutes1 = Math.floor(audio.duration / 60) || 0;
+  let seconds1 = Math.floor(audio.duration - minutes1 * 60) || 0;
+  durarionAudio.innerHTML = minutes1 + ':' + (seconds1 < 10 ? '0' : '') + seconds1;
+  if (audio.currentTime == audio.duration) {
+    play.classList.remove('pause');
+    lis.forEach(item => {
+      item.classList.remove('pause');
+      isPlay = false;
+    })
+  }
+}
+
+function volPower() {
+  if (audio.volume > 0) {
+    audio.volume = 0;
+    volume.style.backgroundImage = 'url(assets/svg/mute.svg)';
+    volProgress.value = 0;
+  }
+  else {
+    audio.volume = 1;
+    volume.style.backgroundImage = 'url(assets/svg/volume.svg)';
+    volProgress.value = 1;
+  }
+}
+
+function progressChage() {
+  audio.currentTime = progress.value * (audio.duration/100);
+}
+  
+function progressChage1() {
+  audio.volume = volProgress.value;
+  volProgress.style.background = `linear-gradient(to right, #710707 0%, #710707 ${volProgress.value}%, #C4C4C4 ${volProgress.value}%, #C4C4C4 100%)`;
+  if (volProgress.value > 0) {
+    volume.style.backgroundImage = 'url(assets/svg/volume.svg)';
+  } else {
     volume.style.backgroundImage = 'url(assets/svg/mute.svg)';
   }
-  
-  }
-
-progress.addEventListener("input", progressChage);
-volProgress.addEventListener("change", progressChage1);
-volProgress.addEventListener("mousemove", progressChage1);
-volume.addEventListener('click', volPower);
-audio.addEventListener("timeupdate", tof);
-buttonSettings.addEventListener('click', addSettings);
-ul.addEventListener('click', smallPlay);
-
-
+}
 
 function smallPlay(e){
   e.target.classList.toggle('pause');
@@ -506,8 +460,7 @@ function smallPlay(e){
     if(item != e.target) {
       item.classList.remove('pause');
     }
-
-})
+  })
   if (e.target.classList.contains('pause')) {
     play.classList.add('pause');
     lis.forEach((item, index) => {
@@ -515,38 +468,26 @@ function smallPlay(e){
         ind = index;
       }
     })
-      playNum = ind;
-      isPlay = true;
-      audio.src = playList[ind].src;
-      audioName.innerHTML = playList[ind].title; 
-      audio.play();
-    }
-    else {
-      play.classList.remove('pause');
-      isPlay = false;
-      audio.pause();
-    }
+    playNum = ind;
+    isPlay = true;
+    audio.src = playList[ind].src;
+    audioName.innerHTML = playList[ind].title; 
+    audio.play();
+  } else {
+    play.classList.remove('pause');
+    isPlay = false;
+    audio.pause();
+  }
 }
-
-
-
-
 
 function addSettings() {
   settings.classList.toggle('add');
   buttonSettings.classList.toggle('click');
 }
 
-
-lang.addEventListener('change', langSetting);
-apiImg.addEventListener('click', apiSetting);
-disNone.addEventListener('change', disSetting);
-settingsLabelTageInput.addEventListener('change', tageSetting)
-
 function langSetting() {
   if (lang.value == 'en') {
     langType = "en-En";
-
   }
   if (lang.value == 'ru') {
     langType = "ru-Ru";
@@ -555,20 +496,15 @@ function langSetting() {
   getQuotes();
   getWeather();
   changeSettings();
-  
-
 }
 
 function tageSetting() {
   if (settingsLabelTageInput.value) {
     bgTime = settingsLabelTageInput.value;
-  }
-  else{
+  } else{
     bgTime = getTimeOfDay()
-}
-bgImg()
-  
-
+  }
+  bgImg()
 }
 
 function apiSetting() {
@@ -602,41 +538,32 @@ function disSetting() {
   container.classList.remove('off');
   if (disNone.value == 'time') {
     time.classList.add('off');
-
   }
   if (disNone.value == 'date') {
     date.classList.add('off');
-    
   }
   if (disNone.value == 'quote') {
     quote.classList.add('off');
     author.classList.add('off');
     changeQuote.classList.add('off');
-    
   }
   if (disNone.value == 'weather') {
     weather.classList.add('off');
-    
   }
   if (disNone.value == 'player') {
     player.classList.add('off');
-    
   }
   if (disNone.value == 'greeting') {
     greeting.classList.add('off');
     nameUser.classList.add('off');
-    
   }
   if (disNone.value == 'exchange') {
     exchange.classList.add('off');
-    
   }
   if (disNone.value == 'todo') {
     container.classList.add('off');  
   }
 }
-   
-
 
 function changeSettings() {
   if (langType == 'en-En') {
@@ -644,17 +571,14 @@ function changeSettings() {
     settingsLabelImg.innerHTML = "Image";
     settingsLabelHide.innerHTML = "Hide";
     settingsLabelTage.innerHTML = "Tage";
-    // buttonSettings.innerHTML = "Settings";
   }
   if (langType == 'ru-Ru') {
     settingsLabelLang.innerHTML = "Язык";
     settingsLabelImg.innerHTML = "Картинка";
     settingsLabelHide.innerHTML = "Спрятать";
     settingsLabelTage.innerHTML = "Тег";
-    // buttonSettings.innerHTML = "Настройки";
   }
 }
-
 
 async function getWeather() {  
     let langW; 
@@ -664,7 +588,6 @@ async function getWeather() {
   if (langType == 'ru-Ru') {
     langW = 'ru'; 
   }
-  
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${langW}&appid=d0408d219dbe88683f61bc4831c71e4b&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
@@ -678,196 +601,147 @@ async function getWeather() {
   }
   if(data.cod =='200') {
     weatherIcon.classList.remove('off');
-  weatherError.textContent = '';
-  weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-  temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
-  weatherDescription.textContent = data.weather[0].description;
-  if (langType == 'en-En') {
-    humidity.textContent = `Humidity ${data.main.humidity}%`;
-    wind.textContent = `Wind speed ${data.wind.speed}m/\s`;
+    weatherError.textContent = '';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp.toFixed(0)}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+    if (langType == 'en-En') {
+      humidity.textContent = `Humidity ${data.main.humidity}%`;
+      wind.textContent = `Wind speed ${data.wind.speed}m/\s`;
+    }
+    if (langType == 'ru-Ru') {
+      humidity.textContent = `Влажность ${data.main.humidity}%`;
+      wind.textContent = `Скорость ветра ${data.wind.speed}м/\с`;
+    }
   }
-  if (langType == 'ru-Ru') {
-    humidity.textContent = `Влажность ${data.main.humidity}%`;
-    wind.textContent = `Скорость ветра ${data.wind.speed}м/\с`;
-  }
-
-
-  }
-
 }
-city.addEventListener('change', getWeather); 
 
-
-  // todo
-
-
- let addButton = document.getElementById('add');
- let inputTask = document.getElementById('new-task');
- let unfinishedTasks = document.getElementById('unfinished-tasks');
- let finishedTasks = document.getElementById('finished-tasks');
-  
-  
-  function createNewElement(task, finished) {
-    let listItem = document.createElement('li');
-    let checkbox = document.createElement('button');
-  
-      if(finished){
-          checkbox.className = "material-icons checkbox";
-          checkbox.innerHTML = "<i class='material-icons'>check_box</i>";
-      }else {
-          checkbox.className = "material-icons checkbox";
-          checkbox.innerHTML = "<i class='material-icons'>check_box_outline_blank</i>";
-      }
-  
-  
-      let label = document.createElement('label');
-      label.innerText = task;
-      let input = document.createElement('input');
-      input.type = "text";
-      let editButton = document.createElement('button');
-      editButton.className = "material-icons edit";
-      editButton.innerHTML = "<i class='material-icons'>edit</i>";
-      let deleteButton = document.createElement('button');
-      deleteButton.className = "material-icons delete";
-      deleteButton.innerHTML = "<i class='material-icons'>delete</i>";
-  
-      listItem.appendChild(checkbox);
-      listItem.appendChild(label);
-      listItem.appendChild(input);
-      listItem.appendChild(deleteButton);
-      listItem.appendChild(editButton);
-      listItem.classList.add('deal');
-  
-      return listItem;
-  }
-  
-  function addTask() {
-      if (inputTask.value) {
-        let listItem = createNewElement(inputTask.value, false);
-          unfinishedTasks.appendChild(listItem);
-          bindTaskEvents(listItem, finishTask)
-          inputTask.value = "";
-      }
-      save();
-  }
-  addButton.onclick = addTask;
-  
-  function deleteTask() {
-    let listItem = this.parentNode;
-    let ul = listItem.parentNode;
-      ul.removeChild(listItem);
-      save();
-  }
-  
-  function editTask() {
-      console.log(2);
-      let editButton = this;
-      let listItem = this.parentNode;
-      let label = listItem.querySelector('label');
-      let input = listItem.querySelector('input[type=text]');
-  
-      let containsClass = listItem.classList.contains('editMode');
-  
-      if (containsClass) {
-          label.innerText = input.value;
-          editButton.className = "material-icons edit";
-          editButton.innerHTML = "<i class='material-icons'>edit</i>";
-          save();
-      } else {
-          input.value = label.innerText;
-          editButton.className = "material-icons save";
-          editButton.innerHTML = "<i class='material-icons'>save</i>";
-  
-      }
-      listItem.classList.toggle('editMode');
-  }
-  
-  function finishTask() {
-    let listItem = this.parentNode;
-    let checkbox = listItem.querySelector('button.checkbox');
+function createNewElement(task, finished) {
+  let listItem = document.createElement('li');
+  let checkbox = document.createElement('button');
+    if(finished){
       checkbox.className = "material-icons checkbox";
       checkbox.innerHTML = "<i class='material-icons'>check_box</i>";
-      finishedTasks.appendChild(listItem);
-      bindTaskEvents(listItem, unfinishTask);
-      save();
-  }
-  
-  function unfinishTask() {
-    let listItem = this.parentNode;
-    let checkbox = listItem.querySelector('button.checkbox');
+    } else {
       checkbox.className = "material-icons checkbox";
       checkbox.innerHTML = "<i class='material-icons'>check_box_outline_blank</i>";
-  
-      unfinishedTasks.appendChild(listItem);
-      bindTaskEvents(listItem, finishTask)
-      save();
-  }
-  
-  function bindTaskEvents(listItem, checkboxEvent) {
-    let checkbox = listItem.querySelector('button.checkbox');
-    let editButton = listItem.querySelector('button.edit');
-    let deleteButton = listItem.querySelector('button.delete');
-  
-      checkbox.onclick = checkboxEvent;
-      editButton.onclick = editTask;
-      deleteButton.onclick = deleteTask;
-  
-  }
-  function save() {
-  
-    let unfinishedTasksArr = [];
-      for ( let i = 0; i < unfinishedTasks.children.length; i++) {
-          unfinishedTasksArr.push(unfinishedTasks.children[i].getElementsByTagName('label')[0].innerText);
-      }
-  
-      let finishedTasksArr = [];
-      for ( let i = 0; i < finishedTasks.children.length; i++) {
-          finishedTasksArr.push(finishedTasks.children[i].getElementsByTagName('label')[0].innerText);
-      }
-  
-      localStorage.removeItem('todo');
-      localStorage.setItem('todo', JSON.stringify({
-          unfinishedTasks: unfinishedTasksArr,
-          finishedTasks: finishedTasksArr
-      }));
-  
-  }
-  
-  function load(){
-      return JSON.parse(localStorage.getItem('todo'));
-  }
-  
-  let data=load();
-  
-  for( let i=0; i<data.unfinishedTasks.length;i++){
-    let listItem=createNewElement(data.unfinishedTasks[i], false);
-      unfinishedTasks.appendChild(listItem);
-      bindTaskEvents(listItem, finishTask);
-  }
-  
-  for( let i=0; i<data.finishedTasks.length; i++){
-    let listItem=createNewElement(data.finishedTasks[i], true);
-      finishedTasks.appendChild(listItem);
-      bindTaskEvents(listItem, unfinishTask);
-  }
-
-
-  function CBR_XML_Daily_Ru(rates) {
-
-    function trend(current, previous) {
-      if (current > previous) return ' ▲';
-      if (current < previous) return ' ▼';
-      return '';
     }
-
-      
-    let USDrate = rates.Valute.USD.Value.toFixed(2).replace('.', ',');
-    let USD = document.getElementById('USD');
-    USD.innerHTML =  USD.innerHTML.replace('00,00', USDrate);
-    USD.innerHTML += trend(rates.Valute.USD.Value, rates.Valute.USD.Previous);
+  let label = document.createElement('label');
+  label.innerText = task;
+  let input = document.createElement('input');
+  input.type = "text";
+  let editButton = document.createElement('button');
+  editButton.className = "material-icons edit";
+  editButton.innerHTML = "<i class='material-icons'>edit</i>";
+  let deleteButton = document.createElement('button');
+  deleteButton.className = "material-icons delete";
+  deleteButton.innerHTML = "<i class='material-icons'>delete</i>";  
+  listItem.appendChild(checkbox);
+  listItem.appendChild(label);
+  listItem.appendChild(input);
+  listItem.appendChild(deleteButton);
+  listItem.appendChild(editButton);
+  listItem.classList.add('deal');
+  return listItem;
+}
   
-    let EURrate = rates.Valute.EUR.Value.toFixed(2).replace('.', ',');
-    let EUR = document.getElementById('EUR');
-    EUR.innerHTML =  EUR.innerHTML.replace('00,00', EURrate);
-    EUR.innerHTML += trend(rates.Valute.EUR.Value, rates.Valute.EUR.Previous);
+function addTask() {
+  if (inputTask.value) {
+    let listItem = createNewElement(inputTask.value, false);
+    unfinishedTasks.appendChild(listItem);
+    bindTaskEvents(listItem, finishTask)
+    inputTask.value = "";
   }
+  save();
+}
+  
+function deleteTask() {
+  let listItem = this.parentNode;
+  let ul = listItem.parentNode;
+  ul.removeChild(listItem);
+  save();
+}
+  
+function editTask() {
+  let editButton = this;
+  let listItem = this.parentNode;
+  let label = listItem.querySelector('label');
+  let input = listItem.querySelector('input[type=text]');
+  let containsClass = listItem.classList.contains('editMode');
+  if (containsClass) {
+    label.innerText = input.value;
+    editButton.className = "material-icons edit";
+    editButton.innerHTML = "<i class='material-icons'>edit</i>";
+    save();
+  } else {
+    input.value = label.innerText;
+    editButton.className = "material-icons save";
+    editButton.innerHTML = "<i class='material-icons'>save</i>";
+  }
+  listItem.classList.toggle('editMode');
+}
+  
+function finishTask() {
+  let listItem = this.parentNode;
+  let checkbox = listItem.querySelector('button.checkbox');
+  checkbox.className = "material-icons checkbox";
+  checkbox.innerHTML = "<i class='material-icons'>check_box</i>";
+  finishedTasks.appendChild(listItem);
+  bindTaskEvents(listItem, unfinishTask);
+  save();
+}
+  
+function unfinishTask() {
+  let listItem = this.parentNode;
+  let checkbox = listItem.querySelector('button.checkbox');
+  checkbox.className = "material-icons checkbox";
+  checkbox.innerHTML = "<i class='material-icons'>check_box_outline_blank</i>";
+  unfinishedTasks.appendChild(listItem);
+  bindTaskEvents(listItem, finishTask)
+  save();
+}
+  
+function bindTaskEvents(listItem, checkboxEvent) {
+  let checkbox = listItem.querySelector('button.checkbox');
+  let editButton = listItem.querySelector('button.edit');
+  let deleteButton = listItem.querySelector('button.delete');
+  checkbox.onclick = checkboxEvent;
+  editButton.onclick = editTask;
+  deleteButton.onclick = deleteTask;
+}
+
+function save() {
+  let unfinishedTasksArr = [];
+  for ( let i = 0; i < unfinishedTasks.children.length; i++) {
+    unfinishedTasksArr.push(unfinishedTasks.children[i].getElementsByTagName('label')[0].innerText);
+  }
+  let finishedTasksArr = [];
+  for ( let i = 0; i < finishedTasks.children.length; i++) {
+    finishedTasksArr.push(finishedTasks.children[i].getElementsByTagName('label')[0].innerText);
+  }
+  localStorage.removeItem('todo');
+  localStorage.setItem('todo', JSON.stringify({
+    unfinishedTasks: unfinishedTasksArr,
+    finishedTasks: finishedTasksArr
+  }));
+}
+
+function CBR_XML_Daily_Ru(rates) {
+  function trend(current, previous) {
+    if (current > previous) return ' ▲';
+    if (current < previous) return ' ▼';
+    return '';
+  }
+  let USDrate = rates.Valute.USD.Value.toFixed(2).replace('.', ',');
+  let USD = document.getElementById('USD');
+  USD.innerHTML =  USD.innerHTML.replace('00,00', USDrate);
+  USD.innerHTML += trend(rates.Valute.USD.Value, rates.Valute.USD.Previous);
+  let EURrate = rates.Valute.EUR.Value.toFixed(2).replace('.', ',');
+  let EUR = document.getElementById('EUR');
+  EUR.innerHTML =  EUR.innerHTML.replace('00,00', EURrate);
+  EUR.innerHTML += trend(rates.Valute.EUR.Value, rates.Valute.EUR.Previous);
+}
+
+function load(){
+  return JSON.parse(localStorage.getItem('todo'));
+}

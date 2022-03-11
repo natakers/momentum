@@ -611,10 +611,6 @@ a {
   .main {
     margin-top: 100px;
   }
-  /* .timer-container {
-    display: flex;
-    flex-direction: column;
-  } */
 }
 
 @media (max-width: 700px) {
@@ -645,7 +641,6 @@ a {
   .footer {
     height: 15vw;
   }
-
 }
 
 .quote-container {
