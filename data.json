@@ -1,167 +1,166 @@
-[ [
-  {
-    "text": "Never regret anything that made you smile.",
-    "author": "Mark Twain"
-  },
-  {
-    "text": "Keep your friends close, but your enemies closer.",
-    "author": "The Godfather"
-  },
+[
+  [
     {
-    "text": "What we do in life echoes in eternity.",
-    "author": "Gladiator"
-  },
-  {
-    "text": "Love is a friendship set to music.",
-    "author": "Joseph John Campbell"
-  },
-  {
-    "text": "Real beauty lives in the heart, is reflected in the eyes and leads to action.",
-    "author": "Osho"
-  },
+      "text": "Never regret anything that made you smile.",
+      "author": "Mark Twain"
+    },
     {
-    "text": "When love is not madness it is not love.",
-    "author": "Pedro Calderón de la Barca"
-  },
-  {
-    "text": "Love all, trust a few, do wrong to none.",
-    "author": "William Shakespeare"
-  },
-  {
-    "text": "True love stories never have endings.",
-    "author": "Richard David Bach"
-  },
+      "text": "Keep your friends close, but your enemies closer.",
+      "author": "The Godfather"
+    },
     {
-    "text": "Life is a series of choices.",
-    "author": "Nostradamus"
-  },
-  {
-    "text": "Everything you can imagine is real.",
-    "author": "Pablo Picasso"
-  },
-  {
-    "text": "Life is a progress, and not a station.",
-    "author": "Ralph Waldo Emerson"
-  },
+      "text": "What we do in life echoes in eternity.",
+      "author": "Gladiator"
+    },
     {
-    "text": "Love what you do. Do what you love",
-    "author": "Oprah Winfrey"
-  },
-  {
-    "text": "Success is one percent inspiration, ninety-nine percent perspiration.",
-    "author": "Thomas Edison"
-  },
-  {
-    "text": "The mind is everything. What you think you become.",
-    "author": "Buddha"
-  },
+      "text": "Love is a friendship set to music.",
+      "author": "Joseph John Campbell"
+    },
     {
-    "text": "I am not a product of my circumstances. I am a product of my decisions.",
-    "author": "Stephen R. Covey"
-  },
-  {
-    "text": "Those who cannot change their minds cannot change anything.",
-    "author": " Bernard Shaw"
-  },
-  {
-    "text": "Always borrow money from a pessimist. He won’t expect it back. ",
-    "author": "Oscar Wilde"
-  },
+      "text": "Real beauty lives in the heart, is reflected in the eyes and leads to action.",
+      "author": "Osho"
+    },
     {
-    "text": "Language extends hidden power, like the moon on the tides.",
-    "author": "Rita Mae Brown"
-  },{
-    "text": "A mind enclosed in language is in prison",
-    "author": "Simone Weil"
-  },
-  {
-    "text": "A day without laughter is a day wasted",
-    "author": "Charles Chaplin"
-  }
-
-],
- [
-  {
-    "text": "Никогда не сожалей о том, что заставляет тебя улыбаться",
-    "author": "Марк Твен"
-  },
-{
-"text": "Держи друзей близко, а врагов еще ближе.",
-"author": "фильм Крестный отец"
-},
-{
-"text": "То, что мы делаем в жизни, отзовется эхом в вечности.",
-"author": "фильм Гладиатор"
-},
-{
-"text": "Любовь это дружба, переложенная на музыку",
-"author": "Джозеф Кэмпбелл"
-},
-{
-"text": "Настоящая красота живёт в сердце, отражается в глазах и проявляется в поступках",
-"author": "Ошо"
-},
-{
-"text": "Если любовь не безумна, то это не любовь",
-"author": "Педро Кальдерон де ла Барка"
-},
-{
-"text": "Люби всех, доверяй избранным и никому не делай зла ",
-"author": "Уильям Шекспир"
-},
-{
-"text": "У настоящих историй любви нет финалов",
-"author": "Ричард Бах"
-},
-{
-"text": "Жизнь это череда выборов",
-"author": "Нострадамус"
-},
-{
-"text": "Все, что вы можете представить — реально",
-"author": "Пабло Пикассо"
-},
-{
-"text": "Жизнь это процесс, а не остановка",
-"author": "Ралф Уолдо Эмерсон"
-},
-{
-"text": "Люби то, что делаешь. Делай то, что любишь",
-"author": "Опра Уинфри"
-},
-{
-"text": "Успех — это один процент вдохновения и девяносто девять процентов пота",
-"author": "Томас Эдисон"
-},
-{
-"text": "Ум это всё. Что вы думаете, тем вы и становитесь",
-"author": "Будда"
-},
-{
-"text": "Я не продукт моих обстоятельств. Я продукт моих решений",
-"author": "Стивен Кови"
-},
-{
-"text": "Тот, кто не может изменить свои мысли, не может изменить ничего",
-"author": "Бернард Шоу"
-},
-{
-"text": "Всегда занимайте деньги у пессимиста. Он не будет ожидать, что их вернут",
-"author": "Оскар Уайлд"
-},
-{
-"text": "Язык оказывает скрытое влияние, как луна на приливы и отливы",
-"author": "Рита Мэй Браун"
-},{
-"text": "Разум, ограниченный языком, находится в заточении",
-"author": "Симона Вейль"
-},
-{
-"text": "День без смеха это напрасно прожитый день",
-"author": "Чарли Чаплин"
-}
-
+      "text": "When love is not madness it is not love.",
+      "author": "Pedro Calderón de la Barca"
+    },
+    {
+      "text": "Love all, trust a few, do wrong to none.",
+      "author": "William Shakespeare"
+    },
+    {
+      "text": "True love stories never have endings.",
+      "author": "Richard David Bach"
+    },
+    {
+      "text": "Life is a series of choices.",
+      "author": "Nostradamus"
+    },
+    {
+      "text": "Everything you can imagine is real.",
+      "author": "Pablo Picasso"
+    },
+    {
+      "text": "Life is a progress, and not a station.",
+      "author": "Ralph Waldo Emerson"
+    },
+    {
+      "text": "Love what you do. Do what you love",
+      "author": "Oprah Winfrey"
+    },
+    {
+      "text": "Success is one percent inspiration, ninety-nine percent perspiration.",
+      "author": "Thomas Edison"
+    },
+    {
+      "text": "The mind is everything. What you think you become.",
+      "author": "Buddha"
+    },
+    {
+      "text": "I am not a product of my circumstances. I am a product of my decisions.",
+      "author": "Stephen R. Covey"
+    },
+    {
+      "text": "Those who cannot change their minds cannot change anything.",
+      "author": " Bernard Shaw"
+    },
+    {
+      "text": "Always borrow money from a pessimist. He won’t expect it back. ",
+      "author": "Oscar Wilde"
+    },
+    {
+      "text": "Language extends hidden power, like the moon on the tides.",
+      "author": "Rita Mae Brown"
+    },
+    {
+      "text": "A mind enclosed in language is in prison",
+      "author": "Simone Weil"
+    },
+    {
+      "text": "A day without laughter is a day wasted",
+      "author": "Charles Chaplin"
+    }
+  ],
+  [
+    {
+      "text": "Никогда не сожалей о том, что заставляет тебя улыбаться",
+      "author": "Марк Твен"
+    },
+    {
+      "text": "Держи друзей близко, а врагов еще ближе.",
+      "author": "фильм Крестный отец"
+    },
+    {
+      "text": "То, что мы делаем в жизни, отзовется эхом в вечности.",
+      "author": "фильм Гладиатор"
+    },
+    {
+      "text": "Любовь это дружба, переложенная на музыку",
+      "author": "Джозеф Кэмпбелл"
+    },
+    {
+      "text": "Настоящая красота живёт в сердце, отражается в глазах и проявляется в поступках",
+      "author": "Ошо"
+    },
+    {
+      "text": "Если любовь не безумна, то это не любовь",
+      "author": "Педро Кальдерон де ла Барка"
+    },
+    {
+      "text": "Люби всех, доверяй избранным и никому не делай зла ",
+      "author": "Уильям Шекспир"
+    },
+    {
+      "text": "У настоящих историй любви нет финалов",
+      "author": "Ричард Бах"
+    },
+    {
+      "text": "Жизнь это череда выборов",
+      "author": "Нострадамус"
+    },
+    {
+      "text": "Все, что вы можете представить — реально",
+      "author": "Пабло Пикассо"
+    },
+    {
+      "text": "Жизнь это процесс, а не остановка",
+      "author": "Ралф Уолдо Эмерсон"
+    },
+    {
+      "text": "Люби то, что делаешь. Делай то, что любишь",
+      "author": "Опра Уинфри"
+    },
+    {
+      "text": "Успех — это один процент вдохновения и девяносто девять процентов пота",
+      "author": "Томас Эдисон"
+    },
+    {
+      "text": "Ум это всё. Что вы думаете, тем вы и становитесь",
+      "author": "Будда"
+    },
+    {
+      "text": "Я не продукт моих обстоятельств. Я продукт моих решений",
+      "author": "Стивен Кови"
+    },
+    {
+      "text": "Тот, кто не может изменить свои мысли, не может изменить ничего",
+      "author": "Бернард Шоу"
+    },
+    {
+      "text": "Всегда занимайте деньги у пессимиста. Он не будет ожидать, что их вернут",
+      "author": "Оскар Уайлд"
+    },
+    {
+      "text": "Язык оказывает скрытое влияние, как луна на приливы и отливы",
+      "author": "Рита Мэй Браун"
+    },
+    {
+      "text": "Разум, ограниченный языком, находится в заточении",
+      "author": "Симона Вейль"
+    },
+    {
+      "text": "День без смеха это напрасно прожитый день",
+      "author": "Чарли Чаплин"
+    }
+  ]
 ]
-
-    
-  ]  

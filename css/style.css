@@ -31,6 +31,10 @@ body {
   padding: 20px;
 }
 
+.header > div {
+  flex-basis: 33.33%;
+}
+
 .player-controls {
   display: flex;
   align-items: center;
@@ -125,7 +129,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-end;
   row-gap: 5px;
   width: 180px;
   min-height: 180px;  
@@ -200,6 +204,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+
 
 .time {
   margin-bottom: 10px;
@@ -421,6 +427,7 @@ body {
   border-radius: 15px;
   padding: 20px 16px 30px;
   transition: all 0.3s ease-in-out;
+  background-color: rgba(130, 137, 143, 0.5);
 }
 
 ul {
@@ -430,6 +437,8 @@ ul {
 
 .deal-list {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .deal, h3 {
@@ -498,6 +507,7 @@ input#new-task {
   border-bottom: 1px solid #ddd;
   height: 38px;
   color: white;
+  width: 100%;
 }
 
 p > button:hover {
@@ -637,6 +647,7 @@ a {
 
   .container {
     display: none;
+    
   }
   .footer {
     height: 15vw;
