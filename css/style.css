@@ -428,6 +428,7 @@ body {
   padding: 20px 16px 30px;
   transition: all 0.3s ease-in-out;
   background-color: rgba(130, 137, 143, 0.5);
+  width: 30vw;
 }
 
 ul {
