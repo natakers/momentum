@@ -1,3 +1,5 @@
+import { playList } from "../playList.js";
+
 const play = document.querySelector(".play");
 const playNext = document.querySelector(".play-next");
 const playPrev = document.querySelector(".play-prev");
@@ -13,28 +15,6 @@ let playNum = 0;
 const audioName = document.querySelector(".audio-name");
 const durarionAudio = document.querySelector(".durarion");
 const timer = document.querySelector(".timer");
-const playList = [
-  {
-    title: "Aqua Caelestis",
-    src: "../assets/sounds/AquaCaelestis.mp3",
-    duration: "00:39",
-  },
-  {
-    title: "Ennio Morricone",
-    src: "../assets/sounds/Ennio Morricone.mp3",
-    duration: "01:37",
-  },
-  {
-    title: "River Flows In You",
-    src: "../assets/sounds/River Flows In You.mp3",
-    duration: "01:37",
-  },
-  {
-    title: "Summer wind",
-    src: "../assets/sounds/Summer wind.mp3",
-    duration: "01:50",
-  },
-];
 
 play.addEventListener("click", playAudio);
 playNext.addEventListener("click", playAudioNext);
