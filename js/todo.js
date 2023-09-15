@@ -28,11 +28,13 @@ function createNewElement(task, finished) {
   let deleteButton = document.createElement("button");
   deleteButton.className = "material-icons delete";
   deleteButton.innerHTML = "<i class='material-icons'>delete</i>";
+  let box = document.createElement("div");
   listItem.appendChild(checkbox);
   listItem.appendChild(label);
   listItem.appendChild(input);
-  listItem.appendChild(deleteButton);
-  listItem.appendChild(editButton);
+  box.appendChild(deleteButton);
+  box.appendChild(editButton);
+  listItem.appendChild(box);
   listItem.classList.add("deal");
   return listItem;
 }
@@ -48,7 +50,8 @@ function addTask() {
 }
 
 export function deleteTask() {
-  let listItem = this.parentNode;
+  let listItem = this.parentNode.parentNode;
+  console.log(listItem);
   let ul = listItem.parentNode;
   ul.removeChild(listItem);
   save();
@@ -56,7 +59,9 @@ export function deleteTask() {
 
 function editTask() {
   let editButton = this;
-  let listItem = this.parentNode;
+  let listItem = this.parentNode.parentNode;
+  console.log(listItem);
+  console.log(editButton);
   let label = listItem.querySelector("label");
   let input = listItem.querySelector("input[type=text]");
   let containsClass = listItem.classList.contains("editMode");
@@ -84,7 +89,7 @@ function finishTask() {
 }
 
 function unfinishTask() {
-  let listItem = this.parentNode;
+  let listItem = this.parentNode.parentNode;
   let checkbox = listItem.querySelector("button.checkbox");
   checkbox.className = "material-icons checkbox";
   checkbox.innerHTML = "<i class='material-icons'>check_box_outline_blank</i>";
@@ -94,9 +99,12 @@ function unfinishTask() {
 }
 
 function bindTaskEvents(listItem, checkboxEvent) {
+  let box = listItem.querySelector("div");
   let checkbox = listItem.querySelector("button.checkbox");
-  let editButton = listItem.querySelector("button.edit");
-  let deleteButton = listItem.querySelector("button.delete");
+  let editButton = box.querySelector("button.edit");
+  let deleteButton = box.querySelector("button.delete");
+  console.log(checkbox);
+  console.log(deleteButton);
   checkbox.onclick = checkboxEvent;
   editButton.onclick = editTask;
   deleteButton.onclick = deleteTask;

@@ -20,8 +20,7 @@ play.addEventListener("click", playAudio);
 playNext.addEventListener("click", playAudioNext);
 playPrev.addEventListener("click", playAudioPrev);
 progress.addEventListener("input", progressChage);
-volProgress.addEventListener("change", progressChage1);
-volProgress.addEventListener("mousemove", progressChage1);
+volProgress.addEventListener("input", progressChage1);
 volume.addEventListener("click", volPower);
 audio.addEventListener("timeupdate", tof);
 ul.addEventListener("click", smallPlay);
@@ -40,8 +39,6 @@ export function playAudio() {
     item.classList.remove("pause");
   });
   let a = audio.currentTime;
-  console.log(lis);
-  console.log(audio);
   lis.forEach((item) => {
     if (item.innerText == playList[playNum].title) {
       item.classList.add("pause");
@@ -102,7 +99,6 @@ export function playAudioPrev() {
   }
   isPlay = true;
   let s = document.querySelector("ausio");
-  console.log(audio);
   audio.src = playList[playNum].src;
   audioName.innerHTML = playList[playNum].title;
   audio.currentTime = 0;
@@ -119,9 +115,9 @@ export function playAudioPrev() {
 }
 
 export function tof() {
-  progress.style.background = `linear-gradient(to right, #710707 0%, #710707 ${
+  progress.style.background = `linear-gradient(to right, #AFCACF 0%, #AFCACF ${
     audio.currentTime / (audio.duration / 100)
-  }%, #C4C4C4 ${audio.currentTime / (audio.duration / 100)}%, #C4C4C4 100%)`;
+  }%, #fff ${audio.currentTime / (audio.duration / 100)}%, #ffff 100%)`;
   progress.value = audio.currentTime / (audio.duration / 100);
   let minutes = Math.floor(audio.currentTime / 60) || 0;
   let seconds = Math.floor(audio.currentTime - minutes * 60) || 0;
@@ -149,6 +145,7 @@ export function volPower() {
     volume.style.backgroundImage = "url(assets/svg/volume.svg)";
     volProgress.value = 1;
   }
+  volProgress.style.background = `linear-gradient(to right, #AFCACF 0%, #AFCACF ${volProgress.value*100}%, #ffff ${volProgress.value*100}%, #ffff 100%)`;
 }
 
 export function progressChage() {
@@ -157,7 +154,7 @@ export function progressChage() {
 
 export function progressChage1() {
   audio.volume = volProgress.value;
-  volProgress.style.background = `linear-gradient(to right, #710707 0%, #710707 ${volProgress.value}%, #C4C4C4 ${volProgress.value}%, #C4C4C4 100%)`;
+  volProgress.style.background = `linear-gradient(to right, #AFCACF 0%, #AFCACF ${volProgress.value*100}%, #ffff ${volProgress.value*100}%, #ffff 100%)`;
   if (volProgress.value > 0) {
     volume.style.backgroundImage = "url(assets/svg/volume.svg)";
   } else {
@@ -166,7 +163,6 @@ export function progressChage1() {
 }
 
 export function smallPlay(e) {
-  console.log(e.target);
   e.target.classList.toggle("pause");
   let ind = null;
   lis.forEach((item) => {

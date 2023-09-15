@@ -33,7 +33,21 @@ const container = document.querySelector(".container");
 showTime();
 showGreeting();
 window.addEventListener("beforeunload", setLocalStorage);
-window.addEventListener("load", getLocalStorage);
+window.addEventListener("load", () => {
+  getLocalStorage()
+  if (document.documentElement.clientWidth <= 834) {
+    document.querySelector('.box').appendChild(document.querySelector('.time-container'))
+  }
+});
+window.addEventListener("resize", () => {
+  if (document.documentElement.clientWidth <= 834) {
+    document.querySelector('.box').appendChild(document.querySelector('.time-container'))
+  }
+  if (document.documentElement.clientWidth > 834) {
+    document.querySelector('.header').appendChild(document.querySelector('.time-container'))
+    document.querySelector('.box').style.order = '2'
+  }
+});
 nameUser.focus();
 bgImg();
 getQuotes();
