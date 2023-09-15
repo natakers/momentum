@@ -9,7 +9,6 @@ const volProgress = document.querySelector(".volume-progress");
 const volume = document.querySelector(".volume");
 const audio = new Audio();
 const ul = document.querySelector("ul");
-const lis = document.querySelectorAll("li");
 let isPlay = false;
 let playNum = 0;
 const audioName = document.querySelector(".audio-name");
@@ -33,12 +32,11 @@ playList.forEach((el) => {
   li.append(span);
   playListContainer.append(li);
 });
-
+const lis = document.querySelectorAll(".play-item");
 export function playAudio() {
   lis.forEach((item) => {
     item.classList.remove("pause");
   });
-  let a = audio.currentTime;
   lis.forEach((item) => {
     if (item.innerText == playList[playNum].title) {
       item.classList.add("pause");
@@ -47,7 +45,6 @@ export function playAudio() {
   if (!isPlay) {
     isPlay = true;
     audio.src = playList[playNum].src;
-    audio.currentTime = a;
     audio.play();
     lis.forEach((item) => {
       if (item.innerText == playList[playNum].title) {
