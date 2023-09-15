@@ -15,11 +15,13 @@ body {
   color: #fff;
   text-align: center;
   background-blend-mode: multiply;
-  transition: background-image 0.5s ease-in-out;
+  transition: all 0.8s ease-in-out;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .header {
   display: flex;
@@ -377,8 +379,9 @@ body {
   transition: all 0.3s ease-in-out;
   background-color: rgba(130, 137, 143, 0.5);
   width: 30vw;
-  max-height: 40vh;
+  max-height: 35vh;
   overflow-y: auto;
+  position: relative;
 }
 ul {
   margin: 5px 0;
@@ -519,6 +522,20 @@ a {
 .footer-part {
   width: 100%;
 }
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: lightgray;
+  background-clip: content-box;
+  border: 5px solid transparent;
+  border-radius: 15px;
+  
+}
+
+
 @media (max-width: 834px) {
   .greeting, .name {
     font-size: calc(26px + 8 * ((100vw - 320px) / 314));

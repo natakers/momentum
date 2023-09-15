@@ -5,6 +5,7 @@ import { getWeather } from "./weather.js";
 import { getQuotes } from "./quotes.js";
 import { bgImg, tageSetting } from "./imageSlider.js";
 import "./player.js";
+import { todoTitles } from "./todoTitles.js";
 
 const nameUser = document.querySelector(".name");
 export const body = document.querySelector("body");
@@ -29,6 +30,10 @@ const settingsLabelTageInput = document.querySelector(
 export const city = document.querySelector(".city");
 const exchange = document.querySelector(".exchange");
 const container = document.querySelector(".container");
+const dealListTitle = document.querySelector(".deal-list-list");
+const unfinishedTasksTitle = document.querySelector(".unfinished-tasks-title");
+const finishedTasksTitle = document.querySelector(".finished-tasks-title");
+const addButton = document.getElementById("add");
 
 showTime();
 showGreeting();
@@ -38,6 +43,7 @@ window.addEventListener("load", () => {
   if (document.documentElement.clientWidth <= 834) {
     document.querySelector('.box').appendChild(document.querySelector('.time-container'))
   }
+  nameUser.focus();
 });
 window.addEventListener("resize", () => {
   if (document.documentElement.clientWidth <= 834) {
@@ -51,6 +57,7 @@ window.addEventListener("resize", () => {
 nameUser.focus();
 bgImg();
 getQuotes();
+langChooseTodo()
 
 changeQuote.addEventListener("click", getQuotes);
 buttonSettings.addEventListener("click", addSettings);
@@ -111,6 +118,7 @@ function langSetting() {
   getQuotes();
   getWeather();
   changeSettings();
+  langChooseTodo()
 }
 
 function apiSetting() {
@@ -183,5 +191,20 @@ function changeSettings() {
     settingsLabelImg.innerHTML = "Картинка";
     settingsLabelHide.innerHTML = "Спрятать";
     settingsLabelTage.innerHTML = "Тег";
+  }
+}
+
+function langChooseTodo() {
+  if (langType == "en-En") {
+    dealListTitle.innerHTML = todoTitles.en.addTodo
+    unfinishedTasksTitle.innerHTML = todoTitles.en.list
+    finishedTasksTitle.innerHTML = todoTitles.en.finishTodo
+    addButton.innerHTML = todoTitles.en.button
+  }
+  if (langType == "ru-Ru") {
+    dealListTitle.innerHTML = todoTitles.ru.addTodo
+    unfinishedTasksTitle.innerHTML = todoTitles.ru.list
+    finishedTasksTitle.innerHTML = todoTitles.ru.finishTodo
+    addButton.innerHTML = todoTitles.ru.button
   }
 }

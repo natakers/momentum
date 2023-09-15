@@ -103,8 +103,6 @@ function bindTaskEvents(listItem, checkboxEvent) {
   let checkbox = listItem.querySelector("button.checkbox");
   let editButton = box.querySelector("button.edit");
   let deleteButton = box.querySelector("button.delete");
-  console.log(checkbox);
-  console.log(deleteButton);
   checkbox.onclick = checkboxEvent;
   editButton.onclick = editTask;
   deleteButton.onclick = deleteTask;

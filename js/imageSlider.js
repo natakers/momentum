@@ -32,7 +32,6 @@ export function bgImg() {
     img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${bgTime}/${bgNumTo}.jpg`;
     img.onload = () => {
       body.style.backgroundImage = `url(${img.src})`;
-      body.style.backgroundRepeat = "no-repeat";
     };
   }
   if (apiImg.value == "Unsplash API") {
@@ -87,8 +86,6 @@ async function getLinkToImage() {
   img.src = data.urls.regular;
   img.onload = () => {
     body.style.backgroundImage = `url(${img.src})`;
-    body.style.backgroundSize = "cover";
-    body.style.backgroundRepeat = "no-repeat";
   };
 }
 
@@ -100,7 +97,5 @@ async function getLinkToImageF() {
   img.src = data.photos.photo[bgNum].url_l;
   img.onload = () => {
     body.style.backgroundImage = `url(${img.src})`;
-    body.style.backgroundSize = "cover";
-    body.style.backgroundRepeat = "no-repeat";
   };
 }
