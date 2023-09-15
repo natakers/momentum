@@ -9,6 +9,7 @@ const wind = document.querySelector(".wind");
 const humidity = document.querySelector(".humidity");
 
 export async function getWeather() {
+  console.log(new Date);
   let langW;
   if (langType == "en-En") {
     langW = "en";

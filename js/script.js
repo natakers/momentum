@@ -208,3 +208,5 @@ function langChooseTodo() {
     addButton.innerHTML = todoTitles.ru.button
   }
 }
+
+setInterval(async() => await getWeather(), 60000)
