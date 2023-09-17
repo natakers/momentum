@@ -135,14 +135,18 @@ function load() {
   return JSON.parse(localStorage.getItem("todo"));
 }
 
-for (let i = 0; i < data.unfinishedTasks.length; i++) {
-  let listItem = createNewElement(data.unfinishedTasks[i], false);
-  unfinishedTasks.appendChild(listItem);
-  bindTaskEvents(listItem, finishTask);
+if (data && data.unfinishedTasks.length > 0 ) {
+  for (let i = 0; i < data.unfinishedTasks.length; i++) {
+    let listItem = createNewElement(data.unfinishedTasks[i], false);
+    unfinishedTasks.appendChild(listItem);
+    bindTaskEvents(listItem, finishTask);
+  }
 }
 
+if (data && data.finishedTasks.length > 0 ) {
 for (let i = 0; i < data.finishedTasks.length; i++) {
   let listItem = createNewElement(data.finishedTasks[i], true);
   finishedTasks.appendChild(listItem);
   bindTaskEvents(listItem, unfinishTask);
+}
 }

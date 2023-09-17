@@ -65,6 +65,7 @@ body {
 }
 .player {
   transition: all 0.5s ease-in-out;
+  z-index: 10;
 }
 .settings-label-tage, .settings-label-tage-input {
   display: none;
